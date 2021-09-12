@@ -1,29 +1,8 @@
 import React from 'react';
 import InputWithLabel from 'components/input-with-label';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
-
-const StyledForm = styled.form`
-  display:flex;
-  border:solid #fff 1px;
-  padding-top:.5rem;
-  padding-bottom: .5rem;
-  border-radius: .5rem;
-  font-size:1.25em
-`;
-const StyledIconButton = styled.button`
-  border:none;
-  background:none !important;
-  &:not([disabled]) {
-    cursor: pointer;
-  }
-`;
-
-const FontAwesomeIconWithLoad = ({ isLoading, icon, ...props }) => {
-  if (isLoading) { return (<FontAwesomeIcon icon={faSpinner} {...props} pulse spin />); }
-  return (<FontAwesomeIcon icon={faSearch} {...props} />);
-};
+import { IconWithLoad } from 'components/icons';
+import * as StyledButton from 'components/button/styles';
+import * as StyledForm from './styles';
 
 const StorySearchForm = ({ isLoading, appendToSearchedTerms }) => {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -34,20 +13,20 @@ const StorySearchForm = ({ isLoading, appendToSearchedTerms }) => {
     // setSearchTerm('');
   };
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledIconButton
+    <StyledForm.Form onSubmit={handleSubmit}>
+      <StyledButton.Icon
         type="submit"
         disabled={!searchTerm || isLoading}
       >
-        <FontAwesomeIconWithLoad isLoading={isLoading} icon={faSearch} size="lg" color="#ccc" />
-      </StyledIconButton>
+        <IconWithLoad isLoading={isLoading} icon="search" size="lg" color="#ccc" />
+      </StyledButton.Icon>
       <InputWithLabel
         id="story-search-input"
         value={searchTerm}
         placeholder="Search Hacker News..."
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-    </StyledForm>
+    </StyledForm.Form>
   );
 };
 

@@ -1,10 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import { GetColor, GetBackgroundColor } from 'utils/colors';
 
-const ChipPlain = ({ children, ...props }) => (<div {...props}>{children}</div>);
-
-const Chip = styled(ChipPlain)`
+const Chip = styled.div`
 display: inline-block;
 padding: 0 1rem;
 border-radius: 32px;

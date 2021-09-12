@@ -1,26 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { StyledButton, StyledButtonOutline } from 'components/button';
 import Chip from 'components/chip';
-
-const StyledStory = styled.div`
-  display:flex;
-  align-items:center;
-  border-radius:0.25rem;
-  padding:0.25rem;
-  margin-bottom:0.25rem;
-  &:hover {
-    background-color: rgba(0,0,0,0.075)
-  }
-`;
-
-const Texttile = styled.div`
-  font-size:1em
-`;
-const TextMuted = styled.div`
-  font-size:0.8em;
-  color:#aaa
-`;
+import * as ButtonStyled from 'components/button/styles';
+import * as TextStyled from 'components/text/styles';
+import * as StoryStyled from './styles';
 
 const StoryList = ({ stories, removeStory }) => {
   if (stories.length === 0) { return (<div>No stories found</div>); }
@@ -38,23 +20,24 @@ const StoryList = ({ stories, removeStory }) => {
 };
 
 const Story = ({ story, removeStory }) => {
-  const dogs = 1;
+  // eslint-disable-next-line no-unused-vars
+  const placeholder = 1;
   return (
-    <StyledStory>
+    <StoryStyled.Story>
       <div style={{ marginRight: 'auto' }}>
-        <Texttile>{story.title}</Texttile>
-        <TextMuted>
+        <TextStyled.Title>{story.title}</TextStyled.Title>
+        <TextStyled.Muted>
           Author:
           {' '}
           {story.author}
-        </TextMuted>
+        </TextStyled.Muted>
       </div>
       <div style={{ width: '10%' }}><Chip color="secondary" title="Comments">{story.num_comments}</Chip></div>
       <div style={{ width: '10%' }}><Chip color="secondary" title="Points">{story.points}</Chip></div>
       <div style={{ width: '10%', textAlign: 'right' }}>
-        <StyledButtonOutline onClick={(e) => removeStory(story)} ripple color="primary" type="button">Dismiss</StyledButtonOutline>
+        <ButtonStyled.Outline onClick={() => removeStory(story)} ripple $color="primary" type="button">Dismiss</ButtonStyled.Outline>
       </div>
-    </StyledStory>
+    </StoryStyled.Story>
   );
 };
 
