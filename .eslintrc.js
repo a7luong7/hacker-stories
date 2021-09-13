@@ -7,7 +7,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:import/recommended',
-    'airbnb',
+    'airbnb-typescript'
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -27,13 +27,15 @@ module.exports = {
         some: ['nesting', 'id'],
       },
     }],
+    //"import/extensions": "off"
   },
   "settings": {
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "moduleDirectory": ['node_modules', 'src'],
-      }
+      },
+      typescript: {} // this loads <rootdir>/tsconfig.json to eslint
     }
   },
 };
