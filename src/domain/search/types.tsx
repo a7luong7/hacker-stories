@@ -1,5 +1,5 @@
 export type Story = {
-  objectID: string,
+  objectId: string,
   title?: string,
   author?: string,
   num_comments?: number,
