@@ -16,7 +16,6 @@ const StorySearchForm = ({
   const handleSubmit = (e: any) => {
     e.preventDefault();
     appendToSearchedTerms(searchTerm);
-    // setSearchTerm('');
   };
   return (
     <StyledForm.Form onSubmit={handleSubmit}>
