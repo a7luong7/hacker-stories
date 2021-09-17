@@ -1,5 +1,5 @@
 export type Story = {
-  objectId: string,
+  objectID: string,
   title?: string,
   author?: string,
   num_comments?: number,
@@ -15,7 +15,6 @@ export type StoryState = {
   isLoading: boolean,
   isError: boolean
 }
-
 
 interface SetStoryAction {
   type: 'SET_STORIES',

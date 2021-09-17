@@ -21,8 +21,6 @@ const AppPallet = {
 
 export type ColorType = 'primary' | 'secondary' | 'success' | 'danger'
 
-//type ColorType = 'primary' | 'secondary' | 'success' | danger'
-
 export const GetBackgroundColor = (color : ColorType) => {
   if (!color) return null;
   const pallet = AppPallet[color];
@@ -35,5 +33,3 @@ export const GetColor = (color : ColorType) => {
   if (!color) return null;
   return pallet.color;
 };
-
-// export default { GetBackgroundColor, GetColor };

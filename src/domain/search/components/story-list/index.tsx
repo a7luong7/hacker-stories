@@ -17,7 +17,7 @@ const StoryList = ({
     <div>
       {stories.map((story) => (
         <Story
-          key={story.objectId}
+          key={story.objectID}
           story={story}
           removeStory={removeStory}
         />
