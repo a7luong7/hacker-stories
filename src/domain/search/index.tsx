@@ -52,7 +52,6 @@ const StorySearch = () => {
 
     const storiesResult = await getStories(lastSearchTerm)
       .catch(() => {
-        // console.log('error getting stories', error);
         storyStateDispatch({ type: 'ERROR_STORIES' });
       });
 
