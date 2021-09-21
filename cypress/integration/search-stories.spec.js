@@ -31,6 +31,27 @@ describe('Search stories', function() {
       cy.contains(firstStory.title).parent().parent().contains('Dismiss').click();
       cy.contains(firstStory.title).should('not.exist')
     })
+
+    it('stories can be sorted', function () {
+      //Sort by title
+      cy.get('button.btn-sortstories[data-label="Title"]').first().click();
+      cy.get('.story').first().contains('Auth0 Has been down for almost 4 hours now');
+      cy.get('button.btn-sortstories[data-label="Title"]').first().click();
+      cy.get('.story').first().contains('The reason Okta spent $6.5B on Auth0');
+
+      //Sort by number of comments
+      cy.get('button.btn-sortstories[data-label="Comments"]').first().click();
+      cy.get('.story').first().contains('100');
+      cy.get('button.btn-sortstories[data-label="Comments"]').first().click();
+      cy.get('.story').first().contains('148');
+
+      //Sort by points
+      cy.get('button.btn-sortstories[data-label="Points"]').first().click();
+      cy.get('.story').first().contains('195');
+      cy.get('button.btn-sortstories[data-label="Points"]').first().click();
+      cy.get('.story').first().contains('632');
+    })
+
   })
 
   

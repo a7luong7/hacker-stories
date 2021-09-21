@@ -36,7 +36,7 @@ const Story = ({
   // eslint-disable-next-line no-unused-vars
   const placeholder = 1;
   return (
-    <StoryStyled.Story>
+    <StoryStyled.Story className="story">
       <div style={{ marginRight: 'auto' }}>
         <TextStyled.Title>{story.title}</TextStyled.Title>
         <TextStyled.Muted>

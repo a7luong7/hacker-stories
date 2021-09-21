@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'components/icons';
 import * as TextStyled from 'components/text/styles';
+import { Icon as IconButton } from 'components/button/styles'
 import { StorySortState } from '../../types'
 import styled from 'styled-components';
 
@@ -45,10 +46,15 @@ const StorySorterItem = ({ label, sortState, toggleSort }: {
   const isSortingDesc = sortState.column === label && sortState.direction === 'desc';
   return (<FlexRow>
     <TextStyled.Semibold >{label}</TextStyled.Semibold>
-    <div onClick={toggleSort} style={{ cursor: 'pointer' }}>
+    <IconButton 
+      className="btn-sortstories"
+      data-label={label}
+      type="button" 
+      onClick={toggleSort} 
+      style={{ cursor: 'pointer' }}>
       <Icon icon="long-arrow-alt-up" color={isSortingAsc ? "inherit" : "#aaa"} />
       <Icon icon="long-arrow-alt-down" color={isSortingDesc ? "inherit" : "#aaa"} />
-    </div>
+    </IconButton>
 
   </FlexRow>)
 }
