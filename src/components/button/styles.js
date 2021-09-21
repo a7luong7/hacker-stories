@@ -44,4 +44,8 @@ export const Icon = styled.button`
   }
 `;
 
+export const Styleless = styled(Icon)`
+  padding:0
+`
+
 export default Button;

@@ -17,9 +17,13 @@ const AppPallet = {
     background: '#DD6966',
     color: '#fff',
   },
+  'light': {
+    background: '#fff',
+    color: '#000',
+  }
 };
 
-export type ColorType = 'primary' | 'secondary' | 'success' | 'danger'
+export type ColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'light'
 
 export const GetBackgroundColor = (color : ColorType) => {
   if (!color) return null;

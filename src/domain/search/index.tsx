@@ -3,10 +3,11 @@ import { getStories } from 'services/hacker-news';
 import Spacer from 'components/spacer';
 import StorySearchForm from './components/search-form';
 import StoryList from './components/story-list';
-import { StyledContainer } from './styles';
+import { StyledContainer, Container } from './styles';
 import StorySorter from './components/story-sorter';
 import sortStories from 'services/sort-stories';
 import * as StoryTypes from './types'
+import LastSearches from './components/last-searches';
 
 const storiesInitialState = {
   stories: [],
@@ -81,25 +82,33 @@ const StorySearch = () => {
   let sortedStories = sortStories(sortState,storyState.stories);
   
   return (
-    <StyledContainer>
-      {/* <SearchedTerms searchedTerms={searchedTerms} /> */}
-      <StorySearchForm
-        isLoading={storyState.isLoading}
-        appendToSearchedTerms={appendToSearchedTerms}
-      />
+    <>
+      <Container>
+        <LastSearches 
+          searchedTerms={searchedTerms} 
+          appendToSearchedTerms={appendToSearchedTerms} />
+      </Container>
+      <StyledContainer>
+        {/* <SearchedTerms searchedTerms={searchedTerms} /> */}
 
-      {storyState.isLoading && <div>Loading stories...</div>}
-      {storyState.isLoading
-        || storyState.isError
-        || searchedTerms.length === 0
-        || (
-        <>
-          <Spacer />
-          <StorySorter sortState={sortState} toggleSortState={toggleSortState} />
-          <StoryList stories={sortedStories} removeStory={removeStory} />
-        </>
-        ) }
-    </StyledContainer>
+        <StorySearchForm
+          isLoading={storyState.isLoading}
+          appendToSearchedTerms={appendToSearchedTerms}
+        />
+
+        {storyState.isLoading && <div>Loading stories...</div>}
+        {storyState.isLoading
+          || storyState.isError
+          || searchedTerms.length === 0
+          || (
+            <>
+              <Spacer />
+              <StorySorter sortState={sortState} toggleSortState={toggleSortState} />
+              <StoryList stories={sortedStories} removeStory={removeStory} />
+            </>
+          )}
+      </StyledContainer>
+    </>
   );
 };
 
