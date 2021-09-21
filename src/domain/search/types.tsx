@@ -36,4 +36,9 @@ export type StoryAction =
   | ErrorStoryAction 
   | RemoveStoryAction;
 
+  export type StorySortState = {
+    column?: string,
+    direction?: 'asc' | 'desc'
+  }
+
 export default {}
