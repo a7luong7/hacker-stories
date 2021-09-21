@@ -8,7 +8,7 @@ const LastSearches = ({ searchedTerms, appendToSearchedTerms } : {
 }) => {
     return (<div style={{ marginTop: '1rem' }}>
         <label style={{ marginRight:'1rem' }}>Last Searches: </label>
-        {searchedTerms.map(search => <LastSearch searchTerm={search} appendToSearchedTerms={appendToSearchedTerms} />)}
+        {searchedTerms.map((search,i) => <LastSearch key={`${search}-${i}`} searchTerm={search} appendToSearchedTerms={appendToSearchedTerms} />)}
     </div>)
 }
 

@@ -37,7 +37,7 @@ const StorySearch = () => {
   const [storyState, storyStateDispatch] = React.useReducer(storiesReducer, storiesInitialState);
   const [searchedTerms, setSearchedTerms] = React.useState<Array<string>>([]);
   const searchFormRef = useRef<any|null>(null);
-  const maxLastSearches = 5;
+  const maxLastSearches = 6;
 
   const appendToSearchedTerms = (newTerm : string) => {
     //Do not show duplicated searches if searched term was within previous searches
@@ -102,13 +102,15 @@ const StorySearch = () => {
   }
   let sortedStories = sortStories(sortState,storyState.stories);
   
-  
+  const lastSearchTermsExcludingCurrent = searchedTerms.length > 0
+    ? searchedTerms.slice(0,-1)
+    : []
 
   return (
     <>
       <Container>
         <LastSearches 
-          searchedTerms={searchedTerms} 
+          searchedTerms={lastSearchTermsExcludingCurrent} 
           appendToSearchedTerms={appendToSearchedTerms} />
       </Container>
       <StyledContainer>
