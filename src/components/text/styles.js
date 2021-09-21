@@ -7,3 +7,7 @@ export const Muted = styled.div`
 font-size:0.8em;
 color:#aaa
 `;
+
+export const Semibold = styled.div`
+font-weight:500;
+`;

@@ -33,5 +33,5 @@ export const Icon = ({
 } : {
   icon: IconProp,
   size?: SizeProp,
-  color: string
+  color?: string
 }) => (<FontAwesomeIcon icon={icon} size={size} color={color} />);

@@ -1,6 +1,6 @@
 import React from 'react';
 import InputWithLabel from 'components/input-with-label';
-import { IconWithLoad } from 'components/icons';
+import { IconWithLoad, Icon } from 'components/icons';
 import * as StyledButton from 'components/button/styles';
 import * as StyledForm from './styles';
 

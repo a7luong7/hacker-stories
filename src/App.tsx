@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faLongArrowAltDown, faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
 import StorySearch from './domain/search';
 
 // const SearchedTerms = ({ searchedTerms }) => {
@@ -12,6 +12,8 @@ import StorySearch from './domain/search';
 
 const App = () => {
   library.add(faSearch);
+  library.add(faLongArrowAltDown);
+  library.add(faLongArrowAltUp);
   return (
     <div className="App">
       <StorySearch />
