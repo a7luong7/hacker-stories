@@ -36,8 +36,25 @@ const storiesReducer = (state : StoryTypes.StoryState, action : StoryTypes.Story
 const StorySearch = () => {
   const [storyState, storyStateDispatch] = React.useReducer(storiesReducer, storiesInitialState);
   const [searchedTerms, setSearchedTerms] = React.useState<Array<string>>([]);
+  const maxLastSearches = 5;
+
   const appendToSearchedTerms = (newTerm : string) => {
-    const newSearchedTerms = searchedTerms.concat(newTerm);
+    //Do not show duplicated searches if searched term was within previous searches
+    let newSearchedTerms = searchedTerms
+      .filter(x=>x.trim().toUpperCase() != newTerm.trim().toUpperCase())
+      .concat(newTerm);
+    
+    //If searching by last searched term, do not change anything
+    const isSameAsLastSearch = searchedTerms.length > 0 
+      ? searchedTerms[searchedTerms.length-1].trim().toUpperCase() === newTerm.trim().toUpperCase() 
+      : false;
+    if (isSameAsLastSearch)
+      return;
+
+    //Only display last 5 searches
+    if (newSearchedTerms.length > maxLastSearches)
+      newSearchedTerms = newSearchedTerms.slice(-1 * maxLastSearches);
+
     setSearchedTerms(newSearchedTerms);
   };
   const removeStory = (story : StoryTypes.Story) => {
