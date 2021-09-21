@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { getStories } from 'services/hacker-news';
 import Spacer from 'components/spacer';
 import StorySearchForm from './components/search-form';
@@ -36,6 +36,7 @@ const storiesReducer = (state : StoryTypes.StoryState, action : StoryTypes.Story
 const StorySearch = () => {
   const [storyState, storyStateDispatch] = React.useReducer(storiesReducer, storiesInitialState);
   const [searchedTerms, setSearchedTerms] = React.useState<Array<string>>([]);
+  const searchFormRef = useRef<any|null>(null);
   const maxLastSearches = 5;
 
   const appendToSearchedTerms = (newTerm : string) => {
@@ -55,7 +56,10 @@ const StorySearch = () => {
     if (newSearchedTerms.length > maxLastSearches)
       newSearchedTerms = newSearchedTerms.slice(-1 * maxLastSearches);
 
+    //Set search form input to match last search
     setSearchedTerms(newSearchedTerms);
+    if (searchFormRef.current)
+      searchFormRef.current.setInput(newTerm);
   };
   const removeStory = (story : StoryTypes.Story) => {
     storyStateDispatch({
@@ -98,6 +102,8 @@ const StorySearch = () => {
   }
   let sortedStories = sortStories(sortState,storyState.stories);
   
+  
+
   return (
     <>
       <Container>
@@ -109,6 +115,7 @@ const StorySearch = () => {
         {/* <SearchedTerms searchedTerms={searchedTerms} /> */}
 
         <StorySearchForm
+          ref={searchFormRef}
           isLoading={storyState.isLoading}
           appendToSearchedTerms={appendToSearchedTerms}
         />
