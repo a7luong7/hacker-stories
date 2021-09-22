@@ -101,7 +101,7 @@ const StorySearch = () => {
         type: 'SET_STORIES',
         stories: stories,
       });
-    }, 200);
+    }, 2200);
   }, [searchedTerms]);
 
   React.useEffect(() => {
@@ -146,9 +146,9 @@ const StorySearch = () => {
           isLoading={storyState.isLoading}
           appendToSearchedTerms={appendToSearchedTerms}
         />
-
-        {storyState.isLoading && <div>Loading stories...</div>}
-        {storyState.isLoading
+        
+        {
+          (storyState.isLoading && storyState.stories.length === 0)
           || storyState.isError
           || searchedTerms.length === 0
           || (
@@ -156,9 +156,10 @@ const StorySearch = () => {
               <Spacer />
               <StorySorter sortState={sortState} toggleSortState={toggleSortState} />
               <StoryList stories={sortedStories} removeStory={removeStory} />
-              <button type="button" onClick={loadMoreStories}>More</button>
+              <button type="button" onClick={loadMoreStories} disabled={storyState.isLoading}>More</button>
             </>
           )}
+          {storyState.isLoading && <div>Loading stories...</div>}
       </StyledContainer>
     </>
   );
