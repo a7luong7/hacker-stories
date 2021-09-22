@@ -12,6 +12,8 @@ export type StoryResponse = {
 
 export type StoryState = {
   stories: Array<Story>,
+  // currentPage: number,
+  // maxPages: number,
   isLoading: boolean,
   isError: boolean
 }
@@ -30,11 +32,18 @@ interface RemoveStoryAction {
   type: 'REMOVE_STORY',
   story: Story
 }
+// interface SetStoryPageAction {
+//   type: 'SET_PAGE',
+//   currentPage: number,
+//   maxPages: number
+// }
 export type StoryAction = 
   | SetStoryAction 
   | LoadingStoryAction 
   | ErrorStoryAction 
-  | RemoveStoryAction;
+  | RemoveStoryAction
+  //| SetStoryPageAction
+  ;
 
   export type StorySortState = {
     column?: string,

@@ -11,6 +11,8 @@ import LastSearches from './components/last-searches';
 
 const storiesInitialState = {
   stories: [],
+  currentPage: 0,
+  maxPages: 0,
   isLoading: false,
   isError: false,
 };
@@ -18,24 +20,30 @@ const storiesInitialState = {
 const storiesReducer = (state : StoryTypes.StoryState, action : StoryTypes.StoryAction) : StoryTypes.StoryState => {
   switch (action.type) {
     case 'SET_STORIES':
-      return { stories: action.stories, isLoading: false, isError: false };
+      return { ...state, stories: action.stories, isLoading: false, isError: false };
     case 'LOADING_STORIES':
       return { ...state, isLoading: true, isError: false };
     case 'ERROR_STORIES':
-      return { stories: [], isLoading: false, isError: true };
+      return { ...state, stories: [], isLoading: false, isError: true };
     case 'REMOVE_STORY':
       return {
         ...state,
         stories: state.stories.filter((x) => x.objectID !== action.story.objectID),
-      };
+      }
     default:
       throw new Error(`Unsupported action`);
   }
 };
 
+type PageState = {
+  currentPage: number,
+  maxPages: number
+}
+
 const StorySearch = () => {
   const [storyState, storyStateDispatch] = React.useReducer(storiesReducer, storiesInitialState);
   const [searchedTerms, setSearchedTerms] = React.useState<Array<string>>([]);
+  const [pageState, setPageState] = React.useState<PageState|null>(null);
   const searchFormRef = useRef<any|null>(null);
   const maxLastSearches = 6;
 
@@ -79,13 +87,18 @@ const StorySearch = () => {
         storyStateDispatch({ type: 'ERROR_STORIES' });
       });
 
+    setPageState({
+      currentPage: storiesResult.page,
+      maxPages: storiesResult.nbPages
+    })
+
     // Timeout is to test loading animation
     setTimeout(() => {
       storyStateDispatch({
         type: 'SET_STORIES',
         stories: storiesResult.hits,
       });
-    }, 1200);
+    }, 200);
   }, [searchedTerms]);
 
   React.useEffect(() => {
@@ -105,6 +118,25 @@ const StorySearch = () => {
   const lastSearchTermsExcludingCurrent = searchedTerms.length > 0
     ? searchedTerms.slice(0,-1)
     : []
+
+  const loadMoreStories = async () => {
+    const lastSearchTerm = searchedTerms[searchedTerms.length - 1];
+    const nextPage = pageState ? pageState.currentPage+1 : 0;
+    const storiesResult = await getStories(lastSearchTerm, nextPage)
+      .catch(() => {
+        storyStateDispatch({ type: 'ERROR_STORIES' });
+      });
+
+    setPageState({
+      currentPage: storiesResult.page,
+      maxPages: storiesResult.nbPages
+    })
+
+    storyStateDispatch({
+      type: 'SET_STORIES',
+      stories: storyState.stories.concat(storiesResult.hits),
+    });
+  }
 
   return (
     <>
@@ -131,6 +163,7 @@ const StorySearch = () => {
               <Spacer />
               <StorySorter sortState={sortState} toggleSortState={toggleSortState} />
               <StoryList stories={sortedStories} removeStory={removeStory} />
+              <button type="button" onClick={loadMoreStories}>More</button>
             </>
           )}
       </StyledContainer>
