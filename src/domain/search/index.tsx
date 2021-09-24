@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { getStories } from 'services/hacker-news';
 import Spacer from 'components/spacer';
+import Button from 'components/button/styles';
 import StorySearchForm from './components/search-form';
 import StoryList from './components/story-list';
 import { StyledContainer, Container } from './styles';
@@ -101,7 +102,7 @@ const StorySearch = () => {
         type: 'SET_STORIES',
         stories: stories,
       });
-    }, 2200);
+    }, 200);
   }, [searchedTerms]);
 
   React.useEffect(() => {
@@ -134,6 +135,7 @@ const StorySearch = () => {
   return (
     <>
       <Container>
+        <h2>Hacker News Story Search</h2>
         <LastSearches 
           searchedTerms={lastSearchTermsExcludingCurrent} 
           appendToSearchedTerms={appendToSearchedTerms} />
@@ -156,7 +158,16 @@ const StorySearch = () => {
               <Spacer />
               <StorySorter sortState={sortState} toggleSortState={toggleSortState} />
               <StoryList stories={sortedStories} removeStory={removeStory} />
-              <button type="button" onClick={loadMoreStories} disabled={storyState.isLoading}>More</button>
+              {!storyState.isLoading
+                && pageState
+                && pageState.currentPage < pageState.maxPages
+                &&
+                <Button
+                  type="button"
+                  onClick={loadMoreStories}
+                  $color="primary"
+                  disabled={storyState.isLoading}>More</Button>
+              }
             </>
           )}
           {storyState.isLoading && <div>Loading stories...</div>}

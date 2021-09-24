@@ -31,6 +31,7 @@ type ButtonType = 'button' | 'submit' | 'reset'
 type ButtonProps = {
   children: React.ReactNode,
   ripple?: boolean,
+  disabled? : boolean,
   type?: ButtonType,
   $color?: ColorTypes.ColorType, 
   onClick: (event: React.MouseEvent) => void
@@ -38,6 +39,7 @@ type ButtonProps = {
 export const Button = ({
   children,
   ripple = false,
+  disabled = false,
   type = 'button',
   $color,
   onClick = () => {},
@@ -45,6 +47,7 @@ export const Button = ({
 }:ButtonProps) => (
   <button
     type={type}
+    disabled={disabled}
     onClick={ripple ? (e) => rippleThenFunc(e, onClick) : onClick}
     {...props}
   >
